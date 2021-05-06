@@ -1,16 +1,18 @@
 package org.openpaas.paasta.portal.web.admin.service;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONObject;
 import org.openpaas.paasta.portal.web.admin.common.Common;
 import org.openpaas.paasta.portal.web.admin.common.Constants;
+import org.openpaas.paasta.portal.web.admin.common.UserList;
 import org.openpaas.paasta.portal.web.admin.controller.UserManagementController;
 import org.openpaas.paasta.portal.web.admin.model.UserManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -40,7 +42,7 @@ public class UserManagementService extends Common {
      * @return Map(자바클래스)
      */
     public Map<String, Object> getUserInfoList(int key, String reqUrl, HttpMethod httpMethod, Object param) {
-        return commonService.procCommonApiRestTemplate(key,Constants.V2_URL + reqUrl, httpMethod, param);
+        return commonService.procCommonApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
 
@@ -51,7 +53,7 @@ public class UserManagementService extends Common {
      * @return Map(자바클래스)
      */
     public Map<String, Object> setResetPassword(int key, String reqUrl, HttpMethod httpMethod, Object param) {
-        return commonService.procCommonApiRestTemplate(key,Constants.V2_URL + reqUrl, httpMethod, param);
+        return commonService.procCommonApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
     /**
@@ -64,7 +66,7 @@ public class UserManagementService extends Common {
      * @return
      */
     public Map<String, Object> setInitPassword(int key, String reqUrl, HttpMethod httpMethod, Object param) {
-        return commonService.procCfApiRestTemplate(key,Constants.V2_URL + reqUrl, httpMethod, param);
+        return commonService.procCfApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
     /**
@@ -74,14 +76,14 @@ public class UserManagementService extends Common {
      * @return Map(자바클래스)
      */
     public Map<String, Object> updateOperatingAuthority(int key, String reqUrl, HttpMethod httpMethod, Object param) {
-        return commonService.procCommonApiRestTemplate(key,Constants.V2_URL + reqUrl, httpMethod, param);
+        return commonService.procCommonApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
 
     /**
      * 사용자 계정을 삭제한다.
      *
-     * @param param UserManagement(모델클래스)
+     * @param param UserMana    gement(모델클래스)
      * @return Map(자바클래스)
      */
     public Map<String, Object> deleteUserAccount(int key, String guid, HttpMethod httpMethod, Object param) {
@@ -94,15 +96,16 @@ public class UserManagementService extends Common {
      * @param param Info
      * @return Map(자바클래스)
      */
-    public Map<String, Object> addUser(int key,HttpMethod httpMethod, Map param) {
-        Map<String, Object> result = commonService.procCfApiRestTemplate(key,Constants.V3_URL + "/users", HttpMethod.POST, param);
+    public Map<String, Object> addUser(int key, HttpMethod httpMethod, Map param) {
+        Map<String, Object> result = commonService.procCfApiRestTemplate(key, Constants.V3_URL + "/users", HttpMethod.POST, param);
         if ((boolean) result.get("result")) {
             param.remove("active");
             param.put("active", param.get("active2").toString());
-            commonService.procCommonApiRestTemplate(key,Constants.V2_URL + "/user", httpMethod, param);
+            commonService.procCommonApiRestTemplate(key, Constants.V2_URL + "/user", httpMethod, param);
         }
         return result;
     }
+
 
     /**
      * 유저 이름으로 조직에 연결
@@ -112,8 +115,8 @@ public class UserManagementService extends Common {
      * @param httpMethod
      * @return
      */
-    public Map<String, Object> associateUserOrg(int key, String reqUrl,HttpMethod httpMethod, String param) throws Exception{
-        return commonService.procCfApiRestTemplate(key,Constants.V2_URL+reqUrl,httpMethod,param);
+    public Map<String, Object> associateUserOrg(int key, String reqUrl, HttpMethod httpMethod, String param) throws Exception {
+        return commonService.procCfApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
     /**
@@ -123,19 +126,18 @@ public class UserManagementService extends Common {
      * @return Map(자바클래스)
      */
     public Map<String, Object> updateUserActive(int key, String reqUrl, HttpMethod httpMethod, UserManagement param) {
-        Map<String, Object> result = commonService.procCfApiRestTemplate(key,Constants.V3_URL + "/user/" + param.getUserGuid() + "/active", httpMethod, param);
+        Map<String, Object> result = commonService.procCfApiRestTemplate(key, Constants.V3_URL + "/user/" + param.getUserGuid() + "/active", httpMethod, param);
         param.setActive(result.get("active").toString().equals("true") ? "Y" : "N");
-        return commonService.procCommonApiRestTemplate(key,Constants.V2_URL + reqUrl, httpMethod, param);
+        return commonService.procCommonApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
     }
 
     /**
-     *
      * 유저 상세정보전체출력
      *
      * @return
      */
-    public Map<String,Object> GetUserSummary(int key,String reqUrl,HttpMethod httpMethod){
-        return commonService.procCfApiRestTemplate(key,Constants.V3_URL+reqUrl,httpMethod,null);
+    public Map<String, Object> GetUserSummary(int key, String reqUrl, HttpMethod httpMethod) {
+        return commonService.procCfApiRestTemplate(key, Constants.V3_URL + reqUrl, httpMethod, null);
     }
 
     /**
@@ -144,17 +146,29 @@ public class UserManagementService extends Common {
      * @return map all user name
      * @throws Exception the exception
      */
-    public Map<String,Object> getUser(int key,String reqUrl,HttpMethod httpMethod){
-        return commonService.procCfApiRestTemplate(key,Constants.V3_URL+reqUrl,httpMethod,null);
+    public Map<String, Object> getUser(int key, String reqUrl, HttpMethod httpMethod) {
+        return commonService.procCfApiRestTemplate(key, Constants.V3_URL + reqUrl, httpMethod, null);
     }
 
     /**
-     *
      * 유저의 역할(Role)를 전부조회한다
      *
      * @return
      */
-    public Map<String,Object> getOrgUserRolesForAdmin(int key,String reqUrl,HttpMethod httpMethod,UserManagement users){
-        return commonService.procCfApiRestTemplate(key,Constants.V3_URL+reqUrl,httpMethod,users);
+    public Map<String, Object> getOrgUserRolesForAdmin(int key, String reqUrl, HttpMethod httpMethod, UserManagement users) {
+        return commonService.procCfApiRestTemplate(key, Constants.V3_URL + reqUrl, httpMethod, users);
     }
+
+    /**
+     * 사용자 정보를 수정한다.
+     *
+     * @param param
+     * @return map
+     * 2021-04-26 Yoona
+     */
+    public Map<String, Object> updateUser(int key, String reqUrl, HttpMethod httpMethod, Object param) {
+        return commonService.procCommonApiRestTemplate(key, Constants.V2_URL + reqUrl, httpMethod, param);
+    }
+
 }
+

@@ -375,7 +375,7 @@ if (!document.createElement('canvas').getContext) {
     sienna: '#A0522D',
     skyblue: '#87CEEB',
     slateblue: '#6A5ACD',
-    slategray: '#708090',
+    slategray: '#70',
     slategrey: '#708090',
     snow: '#FFFAFA',
     springgreen: '#00FF7F',

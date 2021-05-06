@@ -56,7 +56,7 @@
                         <th style="text-align: center;"> 관리</th>
                     </tr>
                     </thead>
-                    <tbody id="userInfoTable" style="text-align: center;">
+                    <tbody id="userInfoTable" name="userInfoTable" style="text-align: center;">
                     </tbody>
                 </table>
                 <!-- /.box-body -->
@@ -98,7 +98,7 @@
                     <div class="modal-body">
 
                         <div class="box" style="margin-bottom: 10px; border-top: 0px; box-shadow: 0 0px 0px">
-                            <div id="#layerModalLoadingBar" class="overlay hide"><i class="fa fa-refresh fa-spin"></i>
+                            <div id="#layerModalLoadingBar" value="1" class="overlay hide"><i class="fa fa-refresh fa-spin"></i>
                             </div>
                             <form id="securityGroupForm" class="form-horizontal">
                                 <div class="box-body">
@@ -126,7 +126,7 @@
                                     <div class="form-group">
                                         <label for="addUserId" class="col-sm-3 control-label">조직</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" id="getOrgList">
+                                            <select class="form-control"id="getOrgList">
                                                 <!--<option>테스트1</option>-->
                                             </select>
                                         </div>
@@ -244,632 +244,1039 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+
+
+        <!-- UpdateUserInfo Modal Layer 사용자 수정 -->
+        <div class="modal fade" id="updateUserModal" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="segmentsOrgModalTitle2">사용자 수정</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="box" style="margin-bottom: 10px; border-top: 0px; box-shadow: 0 0px 0px">
+                            <div id="" class="overlay hide"><i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                            <form id="securityGroupForm3" class="form-horizontal">
+                                <div class="box-body">
+                                        <!-- id = guid -->
+                                    <div class="form-group">
+                                        <label for="userGuid" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <input type="hidden" class="form-control" id="userGuid" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="userName" class="col-sm-3 control-label">아이디</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="userName" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="userEmail" class="col-sm-3 control-label">이메일</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="userEmail"  maxlength="50" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="userCreated" class="col-sm-3 control-label">가입일</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="userCreated"  maxlength="50" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label for="userLastmodified" class="col-sm-3 control-label">최종접속일</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="userLastmodified"  maxlength="50" readonly="readonly"/>
+                                        </div>
+                                    </div>
+                                    <!--Address-->
+                                    <!--Active 설정 (승인 여부)-->
+                                    <div class="form-group">
+                                        <label for="updateUserActive" class="col-sm-3 control-label">Active 설정 (승인 여부)</label>
+                                        <div class="col-sm-9" style="margin-top : 5px">
+                                            <input type="checkbox" checked="" id="updateUserActive" disabled="disabled"/>
+                                        </div>
+                                    </div>
+                                    <!--사용자관리 조직지정-->
+                                    <div class="form-group">
+                                        <label for="userName" class="col-sm-3 control-label">Org</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="getOrgList2">
+                                                <!--<option>테스트1</option>-->
+                                            </select>
+                                        </div>
+                                        <!--<span id="orgexplanation2" style="margin-left: 27%;color: red;font-weight: bold">
+                                               </span>-->
+                                    </div>
+                                    <!--사용자관리 공간지정-->
+                                    <div class="form-group">
+                                        <label for="userName" class="col-sm-3 control-label">Space</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="getSpaceList2">
+                                                <!--<option>테스트1</option>-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="selectOS2">
+                                        <div class="form-group" style="height:50px;" id="orgSelect2">
+                                            <label for="orgInput2" class="col-sm-3 col-xs-12 control-label">조직 권한</label>
+                                            <div class="col-sm-4 col-xs-3">
+                                                <select class="form-control" id="orgInput2">
+                                                    <option value="N">조직 권한을 선택해주세요.</option>
+                                                    <option value="OrgManager">OrgManager</option>
+                                                    <option value="BillingManager">BillingManager</option>
+                                                    <option value="OrgAuditor">OrgAuditor</option>
+                                                </select>
+                                            </div>
+                                            <!--<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2" style="position: absolute;top: 6px;left: -8px;" >\
+                                                    vavavava<button type="button" id="close" class="close" style="float: left;margin-left: 54px;">
+                                                    <span aria-hidden="true">×</span></button>
+                                            </button></div>-->
+                                        </div>
+
+                                        <div class="form-group" style="height:50px;" id="spaceSelect2">
+                                            <label for="spaceInput2" class="col-sm-3 col-xs-12 control-label">공간 권한</label>
+                                            <div class="col-sm-4 col-xs-3">
+                                                <select class="form-control" id="spaceInput2">
+                                                    <option value="N">공간 권한을 선택해주세요.</option>
+                                                    <option value="SpaceManager">SpaceManager</option>
+                                                    <option value="SpaceDeveloper">SpaceDeveloper</option>
+                                                    <option value="SpaceAuditor">SpaceAuditor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="clientSaveBtn2" name="modalSaveBtn" class="btn btn-sm btn-primary pull-right" onClick="updateUser();" data-dismiss="modal">수정</button>
+                        <button type="button" id="clientCloseBtn2" class="btn btn-sm btn-default pull-left" data-dismiss="modal">취소</button>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <footer></footer>
     </div>
-
-    <footer></footer>
-</div>
-<script th:inline="javascript" type="text/javascript" layout:fragment="custom-script">
+    <script th:inline="javascript" type="text/javascript" layout:fragment="custom-script">
 
 
 
-    /*<![CDATA[*/
-    var V2_URL = "/v2";
-    var GET_ORGS_FOR_ADMIN_URL = V2_URL + "/orgs";
-    var REST_URL = V2_URL + "/usermgnts";
-    var REST_URL2 = V2_URL + "/organizations";
-    var REST_URL_ACCESS = V2_URL + "/usermgnts/access/";
-    var LOADED_LIST_COUNT = 0;
-    var BOOLEN_SEARCH = false;
-    var REQUEST_TYPE_RESET_PASSWORD = "RESET_PASSWORD";
-    var REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY = "UPDATE_OPERATING_AUTHORITY";
-    var REQUEST_TYPE_UPDATE_LOGIN_ACTIVE = "UPDATE_LOGIN_ACTIVE";
-    var REQUEST_TYPE_DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
+        /*<![CDATA[*/
+        var V2_URL = "/v2";
+        var GET_ORGS_FOR_ADMIN_URL = V2_URL + "/orgs";
+        var REST_URL = V2_URL + "/usermgnts";
+        var REST_URL2 = V2_URL + "/organizations";
+        var REST_URL_ACCESS = V2_URL + "/usermgnts/access/";
+        var LOADED_LIST_COUNT = 0;
+        var BOOLEN_SEARCH = false;
+        var REQUEST_TYPE_RESET_PASSWORD = "RESET_PASSWORD";
+        var REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY = "UPDATE_OPERATING_AUTHORITY";
+        var REQUEST_TYPE_UPDATE_LOGIN_ACTIVE = "UPDATE_LOGIN_ACTIVE";
+        var REQUEST_TYPE_DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
+        var usersObj = new Object();
 
-    var usersObj = new Object();
+        var arr = new Array();
 
-    var arr = new Array();
+        var restOrgGuid;
+        var restOrgName;
 
-    var restOrgGuid;
-    var restOrgName;
+        // GET LIST
+        var getUserInfoList = function (reqPageNo) {
+            key = $("#apiUrls").val();
 
-    // GET LIST
-    var getUserInfoList = function (reqPageNo) {
-        key = $("#apiUrls").val();
+            $('#buttonGetMoreList').hide();
+            var filter = $("#access").val();
+            var param = {
+                searchKeyword: document.getElementById('searchKeyword').value.toLowerCase(),
+                key: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_SIZE}]]*/ "",
+                pageNo: reqPageNo
+            };
 
-        $('#buttonGetMoreList').hide();
-        var filter = $("#access").val();
-        var param = {
-            searchKeyword: document.getElementById('searchKeyword').value.toLowerCase(),
-            key: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_SIZE}]]*/ "",
-            pageNo: reqPageNo
+            procCallAjax(REST_URL+"/" +filter +"/user"+"?key="+key, "GET", param, procCallbackGetUserInfoList, $('#serviceModalLoadingBar'));
+
         };
 
-        procCallAjax(REST_URL+"/" +filter +"/user"+"?key="+key, "GET", param, procCallbackGetUserInfoList, $('#serviceModalLoadingBar'));
 
-    };
-
-    var procButtonClick = function () {
-        key = $("#apiUrls").val();
-        BOOLEN_SEARCH = true;
-        getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO }]]*/ "",key);
-    }
-
-    var procCheckSearchFormKeyEvent = function (e) {
-        key = $("#apiUrls").val();
-        if (e.keyCode == 13 && e.srcElement.type != 'textarea') {
+        var procButtonClick = function () {
+            key = $("#apiUrls").val();
             BOOLEN_SEARCH = true;
             getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO }]]*/ "",key);
         }
-    };
 
-    var selectChange = function(){
-        key = $("#apiUrls").val();
-        $('#buttonGetMoreList').hide();
-        var filter = $("#access").val();
-        var param = {
-            searchKeyword: document.getElementById('searchKeyword').value.toLowerCase(),
-            pageSize: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_SIZE}]]*/ "",
-            pageNo: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO }]]*/ ""
+        var procCheckSearchFormKeyEvent = function (e) {
+            key = $("#apiUrls").val();
+            if (e.keyCode == 13 && e.srcElement.type != 'textarea') {
+                BOOLEN_SEARCH = true;
+                getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO }]]*/ "",key);
+            }
         };
-        procCallAjax(REST_URL+"/"+filter+"/user"+"?key="+key , "GET", param, procCallbackGetUserInfoList, $('#serviceModalLoadingBar'));
-    }
 
-
-    // GET LIST CALLBACK
-    var procCallbackGetUserInfoList = function (data, reqParam) {
-        if (RESULT_STATUS_FAIL == data.RESULT) return false;
-        var objTableArea = $('#userInfoTableArea');
-        var objTable = $('#userInfoTable');
-        var objMessageArea = $('#userInfoMessageArea');
-        var listLength = data.list.length;
-        var htmlString = [];
-
-        var reqPageNo = reqParam.pageNo;
-
-        document.getElementById('currentPageNo').value = reqPageNo;
-
-        if (reqPageNo == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "") {
-            LOADED_LIST_COUNT = 0;
-            objTable.html('');
+        var selectChange = function(){
+            key = $("#apiUrls").val();
+            $('#buttonGetMoreList').hide();
+            var filter = $("#access").val();
+            var param = {
+                searchKeyword: document.getElementById('searchKeyword').value.toLowerCase(),
+                pageSize: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_SIZE}]]*/ "",
+                pageNo: /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO }]]*/ ""
+            };
+            procCallAjax(REST_URL+"/"+filter+"/user"+"?key="+key , "GET", param, procCallbackGetUserInfoList, $('#serviceModalLoadingBar'));
         }
-        objMessageArea.html('');
 
-        if (listLength < 1) {
-            objTableArea.hide();
-            objTable.hide();
-            objMessageArea.append(/*[[#{common.info.empty.data}]]*/"");
-            objMessageArea.show();
 
-        } else {
+        // GET LIST CALLBACK
+        var procCallbackGetUserInfoList = function (data, reqParam) {
+            if (RESULT_STATUS_FAIL == data.RESULT) return false;
+            var objTableArea = $('#userInfoTableArea');
+            var objTable = $('#userInfoTable');
+            var objMessageArea = $('#userInfoMessageArea');
+            var listLength = data.list.length;
+            var htmlString = [];
 
-            var resultList = data.list;
-            var totalListCount = resultList[0].totalCount;
-            var boldClass = '';
-            var menuText = '';
-            var activeText = '';
+            var reqPageNo = reqParam.pageNo;
 
-            usersObj = new Object();
+            document.getElementById('currentPageNo').value = reqPageNo;
 
-            for (var i = 0; i < listLength; i++) {
-                boldClass = /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "" == resultList[i].adminYn ? 'fwb' : '';
-                menuText = '운영권한 부여';
-                activeText = '가입 승인';
-                var telephone = resultList[i].tellPhone == null ? '-' : resultList[i].tellPhone;
-                if (resultList[i].adminYn == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "") menuText = '운영권한 삭제';
-                if (resultList[i].active == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "") activeText = '가입 해제';
-                if (resultList[i].active == 'Y') {
-                    htmlString.push('<tr id="Managementtable' + i + '" name=" ' + resultList[i].userId + '">'
-                        + '<td class="col-md-4 ' + boldClass + '">' + resultList[i].userId + '</td>'
-                        + '<td class="col-md-2 ' + boldClass + '">' + resultList[i].userName + '</td>'
-                        + '<td class="col-md-2 ' + boldClass + '">' + telephone + '</td>'
-                        + '<td class="col-md-1 tac ' + boldClass + '">' + resultList[i].adminYn + '</td>'
-                        + '<td class="col-md-1 tac ' + boldClass + '">' + '<span class="label label-primary">' + '승인' + '</span>' + '</td>'
-                        + '<td class="col-md-2 tac ' + boldClass + '">'
-                        + '<div class="dropdown">'
-                        + '<label class="fa fa-gears" id="dropdownMenu' + i + '" ' + 'data-toggle="dropdown" aria-expanded="false" aria-hidden="true" style="cursor: pointer;"></label>'
-                        + '<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu' + i + '">'
-                        // + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_RESET_PASSWORD + '\', \'' + resultList[i].email +'\', \'' + resultList[i].userGuid + '\')"> 비밀번호 초기화 </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="btnInitUserPwd(\'' + resultList[i].userId + '\')"> 비밀번호 초기화 </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + menuText + ' </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_LOGIN_ACTIVE + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + activeText + ' </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_DELETE_USER_ACCOUNT + '\', \'' + resultList[i].userId + '\', \'' + resultList[i].userGuid + '\')"> 계정 삭제 </a></li>'
-                        + '</ul></div>');
-                } else {
-                    htmlString.push('<tr id="Managementtable' + i + '" name=" ' + resultList[i].userId + '">'
-                        + '<td class="col-md-4 ' + boldClass + '">' + resultList[i].userId + '</td>'
-                        + '<td class="col-md-2 ' + boldClass + '">' + resultList[i].userName + '</td>'
-                        + '<td class="col-md-2 ' + boldClass + '">' + telephone + '</td>'
-                        + '<td class="col-md-1 tac ' + boldClass + '">' + resultList[i].adminYn + '</td>'
-                        + '<td class="col-md-1 tac ' + boldClass + '">' + '<span class="label label-success" style="size: 100 ">' + '비승인' + '</span>' + '</td>'
-                        + '<td class="col-md-2 tac ' + boldClass + '">'
-                        + '<div class="dropdown">'
-                        + '<label class="fa fa-gears" id="dropdownMenu' + i + '" ' + 'data-toggle="dropdown" aria-expanded="false" aria-hidden="true" style="cursor: pointer;"></label>'
-                        + '<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu' + i + '">'
-                        // + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_RESET_PASSWORD + '\', \'' + resultList[i].email +'\', \'' + resultList[i].userGuid + '\')"> 비밀번호 초기화 </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="btnInitUserPwd(\'' + resultList[i].userId + '\')"> 비밀번호 초기화 </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + menuText + ' </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_LOGIN_ACTIVE + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + activeText + ' </a></li>'
-                        + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_DELETE_USER_ACCOUNT + '\', \'' + resultList[i].userId + '\', \'' + resultList[i].userGuid + '\')"> 계정 삭제 </a></li>'
-                        + '</ul></div>');
+            if (reqPageNo == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "") {
+                LOADED_LIST_COUNT = 0;
+                objTable.html('');
+            }
+            objMessageArea.html('');
+
+            if (listLength < 1) {
+                objTableArea.hide();
+                objTable.hide();
+                objMessageArea.append(/*[[#{common.info.empty.data}]]*/"");
+                objMessageArea.show();
+
+            } else {
+
+                var resultList = data.list;
+                var totalListCount = resultList[0].totalCount;
+                var boldClass = '';
+                var menuText = '';
+                var activeText = '';
+
+                usersObj = new Object();
+
+                for (var i = 0; i < listLength; i++) {
+                    boldClass = /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "" == resultList[i].adminYn ? 'fwb' : '';
+                    menuText = '운영권한 부여';
+                    activeText = '가입 승인';
+                    var telephone = resultList[i].tellPhone == null ? '-' : resultList[i].tellPhone;
+                    if (resultList[i].adminYn == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "") menuText = '운영권한 삭제';
+                    if (resultList[i].active == /*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USE_YN_Y}]]*/ "") activeText = '가입 해제';
+                    if (resultList[i].active == 'Y') {
+                        htmlString.push('<tr id="Managementtable' + i + '" name=" '+ resultList[i].userId +'" >'
+                            + '<td class="col-md-4 ' + boldClass + '" id="userList" data-value ="'+ resultList[i].userId +'">' + resultList[i].userId + '</td>'
+                            + '<td class="col-md-2 ' + boldClass + '" id="userNameList" data-value ="'+ resultList[i].userName +'">' + resultList[i].userName + '</td>'
+                            + '<td class="col-md-2 ' + boldClass + '" >' + telephone + '</td>'
+                            + '<td class="col-md-1 tac ' + boldClass + '">' + resultList[i].adminYn + '</td>'
+                            + '<td class="col-md-1 tac ' + boldClass + '">' + '<span class="label label-primary">' + '승인' + '</span>' + '</td>'
+                            + '<td class="col-md-2 tac ' + boldClass + '">'
+                            + '<div class="dropdown">'
+                            + '<label class="fa fa-gears" id="dropdownMenu' + i + '" ' + 'data-toggle="dropdown" aria-expanded="false" aria-hidden="true" style="cursor: pointer;"></label>'
+                            + '<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu' + i + '">'
+                            // + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_RESET_PASSWORD + '\', \'' + resultList[i].email +'\', \'' + resultList[i].userGuid + '\')"> 비밀번호 초기화 </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="btnInitUserPwd(\'' + resultList[i].userId + '\')"> 비밀번호 초기화 </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + menuText + ' </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_LOGIN_ACTIVE + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + activeText + ' </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_DELETE_USER_ACCOUNT + '\', \'' + resultList[i].userId + '\', \'' + resultList[i].userGuid + '\')"> 계정 삭제 </a></li>'
+                            + '</ul></div>');
+                    } else {
+                        htmlString.push('<tr id="Managementtable' + i + '" name="'+ resultList[i].userId +'">'
+                            + '<td class="col-md-4 ' + boldClass + '" id="userList" data-value="'+ resultList[i].userId +'">' + resultList[i].userId + '</td>'
+                            + '<td class="col-md-2 ' + boldClass + '" id="userNameList" data-value ="'+ resultList[i].userName +'">' + resultList[i].userName + '</td>'
+                            + '<td class="col-md-2 ' + boldClass + '">' + telephone + '</td>'
+                            + '<td class="col-md-1 tac ' + boldClass + '">' + resultList[i].adminYn + '</td>'
+                            + '<td class="col-md-1 tac ' + boldClass + '">' + '<span class="label label-success" style="size: 100 ">' + '비승인' + '</span>' + '</td>'
+                            + '<td class="col-md-2 tac ' + boldClass + '">'
+                            + '<div class="dropdown">'
+                            + '<label class="fa fa-gears" id="dropdownMenu' + i + '" ' + 'data-toggle="dropdown" aria-expanded="false" aria-hidden="true" style="cursor: pointer;"></label>'
+                            + '<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu' + i + '">'
+                            // + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_RESET_PASSWORD + '\', \'' + resultList[i].email +'\', \'' + resultList[i].userGuid + '\')"> 비밀번호 초기화 </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="btnInitUserPwd(\'' + resultList[i].userId + '\')"> 비밀번호 초기화 </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + menuText + ' </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_UPDATE_LOGIN_ACTIVE + '\', \'' + resultList[i].userId +'\', \'' + resultList[i].userGuid + '\')"> ' + activeText + ' </a></li>'
+                            + '<li role="presentation"><a role="menuitem" href="javascript:void(0);"  onclick="procUserManagementPopup(\'' + REQUEST_TYPE_DELETE_USER_ACCOUNT + '\', \'' + resultList[i].userId + '\', \'' + resultList[i].userGuid + '\')"> 계정 삭제 </a></li>'
+                            + '</ul></div>');
+                    }
+
+                    htmlString.push('</td></tr>');
+                    usersObj[resultList[i].userId] = resultList[i].userName;
                 }
+                LOADED_LIST_COUNT += listLength;
 
-                htmlString.push('</td></tr>');
-                usersObj[resultList[i].userId] = resultList[i].userName;
+                if (totalListCount > LOADED_LIST_COUNT) {
+                    $('#buttonGetMoreList').animate({
+                        opacity: "show"
+                    });
+                }
+                objMessageArea.hide();
+                objTable.append(htmlString);
+                objTable.show();
+                objTableArea.show();
             }
-            LOADED_LIST_COUNT += listLength;
 
-            if (totalListCount > LOADED_LIST_COUNT) {
-                $('#buttonGetMoreList').animate({
-                    opacity: "show"
-                });
+            $('#userInfoViewArea').show();
+        };
+
+
+        // GET MORE LIST
+        var procGetMoreList = function () {
+            key = $("#apiUrls").val();
+            getUserInfoList(parseInt(document.getElementById('currentPageNo').value) + 1, key);
+        };
+
+
+        // USER MANAGEMENT POPUP
+        var procUserManagementPopup = function (reqType, reqUserId,reqUserGuid) {
+
+            var reqMessage = '';
+            var reqFunction = '';
+            var reqButton = '';
+            if (REQUEST_TYPE_RESET_PASSWORD == reqType) {
+                if (!procCheckEmailValidation(reqUserId)) {
+                    return false;
+                }
+                reqMessage = /*[[#{common.info.popup.reset.password.message}]]*/ "";
+                reqFunction = 'resetPassword("' + reqUserId + '");';
+                reqButton = '전송';
             }
-            objMessageArea.hide();
-            objTable.append(htmlString);
-            objTable.show();
-            objTableArea.show();
-        }
+            else if (REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY == reqType) {
+                reqMessage = /*[[#{common.info.popup.update.operating.authority.message}]]*/ "";
+                reqFunction = 'updateOperatingAuthority("' + reqUserId + '");';
+                reqButton = '실행';
+            }
+            else if (REQUEST_TYPE_DELETE_USER_ACCOUNT == reqType) {
+                reqMessage = /*[[#{common.info.popup.delete.user.account.message}]]*/ "";
+                reqFunction = 'deleteUserAccount("' + reqUserGuid + '");';
+                reqButton = '삭제';
+            }
+            else if (REQUEST_TYPE_UPDATE_LOGIN_ACTIVE == reqType){
+                reqMessage = "사용자포탈 로그인 접속 가능 상태를 수정하시겠습니까";
+                reqFunction = 'updateUserActive("' + reqUserId+'");';
+                reqButton = '수정';
+            }
+            else if (REQUEST_TYPE_UPDATE_USER_INFO == reqType){                 /*2021-04-15*/
+                reqMessage = "사용자포탈 로그인 접속 가능 상태를 수정하시겠습니까";
+                reqFunction = 'updateUserActive("' + reqUserId+'");';
+                reqButton = '수정';
+            }
+            modalInit('사용자 관리', reqMessage, reqFunction, reqButton);
+        };
 
-        $('#userInfoViewArea').show();
-    };
+        var modalInit = function (reqTitle, reqMessage, procFunction, reqButtonText) {
+            if (reqTitle == null || reqTitle.length < 1) return false;
+            if (reqMessage == null || reqMessage.length < 1) return false;
+            if (procFunction == null) return false;
+            var objButtonText = $('#modalButtonText');
+            var buttonText = null == reqButtonText || '' == reqButtonText ? reqMessage.split(' ')[0] : reqButtonText;
+
+            $('#modaltitle').html(reqTitle);
+            $('#modalbody').html(reqMessage);
+
+            objButtonText.html(buttonText);
+            objButtonText.attr('onclick', procFunction);
+            $('#modal-default').modal();
+        };
 
 
-    // GET MORE LIST
-    var procGetMoreList = function () {
-        key = $("#apiUrls").val();
-        getUserInfoList(parseInt(document.getElementById('currentPageNo').value) + 1, key);
-    };
+        // CLOSE POPUP
+        var procClosePopup = function () {
+            $('div.modal').modal();
+        };
+
+        // RESET PASSWORD
+        var resetPassword = function (reqUserId) {
+            alert(reqUserId)
+
+            var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+            if (regex.test(reqUserId) == false) {
+                procAlert("danger", /*[[#{common.email.validation.error.message}]]*/ "");
+            } else {
+                var param = {userid: reqUserId};
+                procCallAjax(REST_URL + "/password/email"+"?key="+key, "POST", JSON.stringify(param), procCallbackResetPassword, $('#serviceModalLoadingBar'));
+            }
 
 
-    // USER MANAGEMENT POPUP
-    var procUserManagementPopup = function (reqType, reqUserId,reqUserGuid) {
+        };
 
-        var reqMessage = '';
-        var reqFunction = '';
-        var reqButton = '';
-        if (REQUEST_TYPE_RESET_PASSWORD == reqType) {
-            if (!procCheckEmailValidation(reqUserId)) {
+
+        // RESET PASSWORD CALLBACK
+        var procCallbackResetPassword = function (data) {
+            if (RESULT_STATUS_FAIL == data.RESULT) return false;
+
+            procAlert("success", /*[[#{common.info.result.success}]]*/ "");
+        };
+
+
+        // UPDATE OPERATING AUTHORITY
+        var updateOperatingAuthority = function (reqUserId) {
+            var param = {userGuid: reqUserId};
+            procCallAjax(REST_URL + "/" + reqUserId + "/authority"+"?key="+key, 'PUT', JSON.stringify(param), procCallbackUpdateOperatingAuthority, $('#serviceModalLoadingBar'));
+        };
+
+
+        // UPDATE OPERATING AUTHORITY CALLBACK
+        var procCallbackUpdateOperatingAuthority = function (data) {
+            if (RESULT_STATUS_FAIL == data.RESULT) return false;
+
+            procInitPage();
+            procAlert("success", /*[[#{common.info.result.success}]]*/ "");
+        };
+
+
+        // DELETE USER ACCOUNT
+        var deleteUserAccount = function (reqUserGuid) {
+            var param = {guid: reqUserGuid};
+            procCallAjax(REST_URL + "/" + reqUserGuid +"?key="+key, 'DELETE', JSON.stringify(param), procCallbackDeleteUserAccount, $('#serviceModalLoadingBar'));
+        };
+
+        // UPDATE USER ACTIVE
+        var updateUserActive = function(reqUserId){
+            var param = {userGuid: reqUserId};
+            procCallAjax(REST_URL + "/" + reqUserId+"/active" +"?key="+key, 'PUT', JSON.stringify(param), procCallbackDeleteUserAccount, $('#serviceModalLoadingBar'));
+        };
+
+        // DELETE USER ACCOUNT CALLBACK
+        var procCallbackDeleteUserAccount = function (data) {
+            if (RESULT_STATUS_FAIL == data.RESULT) {
+
+            }
+            procInitPage();
+            procAlert("success", /*[[#{common.info.result.success}]]*/ "");
+        };
+
+
+        // CHECK EMAIL VALIDATION
+        var procCheckEmailValidation = function (reqUserId) {
+            if (!procCheckValidNull(reqUserId)) return false;
+
+            var regExpPattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+            if (!regExpPattern.test(reqUserId)) {
+                //procAlert("danger", /*[[#{common.email.validation.error.message}]]*/ "");
+                notifyAlert('danger', "", /*[[#{common.email.validation.error.message}]]*/ "");
                 return false;
             }
-            reqMessage = /*[[#{common.info.popup.reset.password.message}]]*/ "";
-            reqFunction = 'resetPassword("' + reqUserId + '");';
-            reqButton = '전송';
-        }
-        else if (REQUEST_TYPE_UPDATE_OPERATING_AUTHORITY == reqType) {
-            reqMessage = /*[[#{common.info.popup.update.operating.authority.message}]]*/ "";
-            reqFunction = 'updateOperatingAuthority("' + reqUserId + '");';
-            reqButton = '실행';
-        }
-        else if (REQUEST_TYPE_DELETE_USER_ACCOUNT == reqType) {
-            reqMessage = /*[[#{common.info.popup.delete.user.account.message}]]*/ "";
-            reqFunction = 'deleteUserAccount("' + reqUserGuid + '");';
-            reqButton = '삭제';
-        }
-        else if (REQUEST_TYPE_UPDATE_LOGIN_ACTIVE == reqType){
-            reqMessage = "사용자포탈 로그인 접속 가능 상태를 수정하시겠습니까";
-            reqFunction = 'updateUserActive("' + reqUserId+'");';
-            reqButton = '수정';
-        }
-        modalInit('사용자 관리', reqMessage, reqFunction, reqButton);
-    };
-
-    var modalInit = function (reqTitle, reqMessage, procFunction, reqButtonText) {
-        if (reqTitle == null || reqTitle.length < 1) return false;
-        if (reqMessage == null || reqMessage.length < 1) return false;
-        if (procFunction == null) return false;
-        var objButtonText = $('#modalButtonText');
-        var buttonText = null == reqButtonText || '' == reqButtonText ? reqMessage.split(' ')[0] : reqButtonText;
-
-        $('#modaltitle').html(reqTitle);
-        $('#modalbody').html(reqMessage);
-
-        objButtonText.html(buttonText);
-        objButtonText.attr('onclick', procFunction);
-        $('#modal-default').modal();
-    };
-
-
-    // CLOSE POPUP
-    var procClosePopup = function () {
-        $('div.modal').modal();
-    };
-
-    // RESET PASSWORD
-    var resetPassword = function (reqUserId) {
-        alert(reqUserId)
-
-        var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-        if (regex.test(reqUserId) == false) {
-            procAlert("danger", /*[[#{common.email.validation.error.message}]]*/ "");
-        } else {
-            var param = {userid: reqUserId};
-            procCallAjax(REST_URL + "/password/email"+"?key="+key, "POST", JSON.stringify(param), procCallbackResetPassword, $('#serviceModalLoadingBar'));
-        }
-
-
-    };
-
-
-    // RESET PASSWORD CALLBACK
-    var procCallbackResetPassword = function (data) {
-        if (RESULT_STATUS_FAIL == data.RESULT) return false;
-
-        procAlert("success", /*[[#{common.info.result.success}]]*/ "");
-    };
-
-
-    // UPDATE OPERATING AUTHORITY
-    var updateOperatingAuthority = function (reqUserId) {
-        var param = {userGuid: reqUserId};
-        procCallAjax(REST_URL + "/" + reqUserId + "/authority"+"?key="+key, 'PUT', JSON.stringify(param), procCallbackUpdateOperatingAuthority, $('#serviceModalLoadingBar'));
-    };
-
-
-    // UPDATE OPERATING AUTHORITY CALLBACK
-    var procCallbackUpdateOperatingAuthority = function (data) {
-        if (RESULT_STATUS_FAIL == data.RESULT) return false;
-
-        procInitPage();
-        procAlert("success", /*[[#{common.info.result.success}]]*/ "");
-    };
-
-
-    // DELETE USER ACCOUNT
-    var deleteUserAccount = function (reqUserGuid) {
-        var param = {guid: reqUserGuid};
-        procCallAjax(REST_URL + "/" + reqUserGuid +"?key="+key, 'DELETE', JSON.stringify(param), procCallbackDeleteUserAccount, $('#serviceModalLoadingBar'));
-    };
-
-    // UPDATE USER ACTIVE
-    var updateUserActive = function(reqUserId){
-        var param = {userGuid: reqUserId};
-        procCallAjax(REST_URL + "/" + reqUserId+"/active" +"?key="+key, 'PUT', JSON.stringify(param), procCallbackDeleteUserAccount, $('#serviceModalLoadingBar'));
-    };
-
-    // DELETE USER ACCOUNT CALLBACK
-    var procCallbackDeleteUserAccount = function (data) {
-        if (RESULT_STATUS_FAIL == data.RESULT) {
-
-        }
-        procInitPage();
-        procAlert("success", /*[[#{common.info.result.success}]]*/ "");
-    };
-
-
-    // CHECK EMAIL VALIDATION
-    var procCheckEmailValidation = function (reqUserId) {
-        if (!procCheckValidNull(reqUserId)) return false;
-
-        var regExpPattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-        if (!regExpPattern.test(reqUserId)) {
-            //procAlert("danger", /*[[#{common.email.validation.error.message}]]*/ "");
-            notifyAlert('danger', "", /*[[#{common.email.validation.error.message}]]*/ "");
-            return false;
-        }
-        return true;
-    };
-    // INIT PAGE
-    var procInitPage = function () {
-        procAlert("info", WELCOME_MESSAGE);
-        key = $("#apiUrls").val();
-
-        //key 값 설정
-        if($.cookie("api_key") != null){
-            key = $.cookie("api_key");
-            $("#apiUrls").val(key);
-        }else{
+            return true;
+        };
+        // INIT PAGE
+        var procInitPage = function () {
+            procAlert("info", WELCOME_MESSAGE);
             key = $("#apiUrls").val();
-        }
-        // alert("INIT PAGE_index_"+key);
 
-        getInitMarketPlaceURL();
-        $('#userInfoViewArea').hide();
-        getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "",key);
-    };
-
-    function btnAddUser() {
-        $("#addUserId").val("");
-        $("#addUserPassword").val("");
-        $("#getOrgList option").remove();
-        $("#getSpaceList option").remove();
-        procCallAjax2(GET_ORGS_FOR_ADMIN_URL+"?key="+key,"GET",null ,procCallbackGetOrgs2);
-        showLayerPopAddUser();
-    };
-
-    function showLayerPopAddUser() {
-        $("#addUserModal").modal("show");
-    };
-
-    var procCallbackGetOrgs2 = function (data, param) {
-
-        if(data.resources.length == 0){
-            $("#getOrgList").append ("<option value='N'>생성된 조직이 없습니다.</option>");
-        } else {
-            var orgName = new Array();
-            var idMap = new Map();
-            for (var i = 0; i < data.resources.length; i++) {
-                orgName[i] = data.resources[i].entity.name;
-                idMap.set(orgName[i],data.resources[i].metadata.guid);
+            //key 값 설정
+            if($.cookie("api_key") != null){
+                key = $.cookie("api_key");
+                $("#apiUrls").val(key);
+            }else{
+                key = $("#apiUrls").val();
             }
-            orgName.sort();
-            for (var i = 0; i < data.resources.length; i++) {
-                $("#getOrgList").append ("<option value='"+idMap.get(orgName[i])+"'>"+orgName[i]+"</option>");
-            }
-            getSpacesForAdmin(idMap.get(orgName[0]),orgName[0], 1);
-        }
-    }
+            // alert("INIT PAGE_index_"+key);
 
-    function addUserInsert() {
-        key = $("#apiUrls").val();
-
-        if(usersObj[$("#addUserId").val()] != undefined) {
-            notifyAlert("warning", "", $("#addUserId").val()+" 은(는) 이미 사용중인 ID 입니다.");
-            return false;
-        }
-
-        var active2 = "N";
-        if($("#addUserActive").is(":checked")) {
-            active2 = "Y";
-        }
-
-        var param = {
-            userId: $("#addUserId").val(),
-            password: $("#addUserPassword").val(),
-            userName: $("#addUserName").val(),
-            active: $("#addUserActive").is(":checked"),
-            active2: active2,
-            status: 1,
-            adminYn: "N"
+            getInitMarketPlaceURL();
+            $('#userInfoViewArea').hide();
+            getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "",key);
         };
 
-        arr=[];
-        $("#selectOS button").each(function () {
-            arr.push($(this).text());
-        });
+        function btnAddUser() {
+            $("#addUserId").val("");
+            $("#addUserPassword").val("");
+            $("#getOrgList option").remove();
+            $("#getSpaceList option").remove();
+            procCallAjax2(GET_ORGS_FOR_ADMIN_URL+"?key="+key,"GET",null ,procCallbackGetOrgs2);
 
-        procCallAjax(REST_URL + "/user"+"?key="+key, 'POST', JSON.stringify(param), procCallbackAddUserInsert, $('#layerModalLoadingBar'));
+            showLayerPopAddUser();
+        };
 
-    };
+        function showLayerPopAddUser() {    //사용자 등록 모달 띄우는 function
+            $("#addUserModal").modal("show");
+        };
 
-    var procCallbackAddUserInsert = function(data) {
-        if(data.result) {
-            var guid = $("#getOrgList option:selected").val();
 
-            var param2 = {
-                username : $("#addUserId").val(),
-                spaceguid : $("#getSpaceList option:selected").val(),
-                role : arr
+        var procCallbackGetOrgs2 = function (data, param) {
+
+            if(data.resources.length == 0){
+                $("#getOrgList").append ("<option value='N'>생성된 조직이 없습니다.</option>");
+            } else {
+                var orgName = new Array();
+                var idMap = new Map();
+                for (var i = 0; i < data.resources.length; i++) {
+                    orgName[i] = data.resources[i].entity.name;
+                    idMap.set(orgName[i],data.resources[i].metadata.guid);
+                }
+                orgName.sort();
+                for (var i = 0; i < data.resources.length; i++) {
+                    $("#getOrgList").append ("<option value='"+idMap.get(orgName[i])+"'>"+orgName[i]+"</option>");
+                }
+                getSpacesForAdmin(idMap.get(orgName[0]),orgName[0], 1);
+            }
+        }
+
+
+        function addUserInsert() {
+            key = $("#apiUrls").val();
+
+            if(usersObj[$("#addUserId").val()] != undefined) {
+                notifyAlert("warning", "", $("#addUserId").val()+" 은(는) 이미 사용중인 ID 입니다.");
+                return false;
+            }
+
+            var active2 = "N";
+            if($("#addUserActive").is(":checked")) {
+                active2 = "Y";
+            }
+
+            var param = {
+                userId: $("#addUserId").val(),
+                password: $("#addUserPassword").val(),
+                userName: $("#addUserName").val(),
+                active: $("#addUserActive").is(":checked"),
+                active2: active2,
+                status: 1,
+                adminYn: "N"
             };
-            procCallAjax(REST_URL2 +"/"+guid+"/users"+"?key="+key, 'PUT', JSON.stringify(param2), procCallbackOrgTarget, null);
-        }
-    };
 
-    var procCallbackOrgTarget = function(data){
-        if(data.result){
-            procInitPage();
-        }
-    }
-
-    // ON LOAD
-    $(document.body).ready(function () {
-        procInitPage();
-
-        if($.cookie("api_key") != null){
-            key = $.cookie("api_key");
-            $("#apiUrls").val(key);
-        }else{
-            key = $("#apiUrls").val();
-        }
-
-        getInitMarketPlaceURL();
-    });
-
-
-    $( "#apiUrls" ).change(function() {
-        key = $("#apiUrls").val();
-        $.cookie("api_key",key);
-        getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "",key);
-    });
-
-    //org 권한
-    $(document).on("change keyup","select[id=orgInput]",function(){
-        var value = $('#orgInput').val();
-        if(value!='N'){
-            switch (value) {
-                case "OrgManager":
-                    $("#orgInput option[value='"+value+"']").remove();
-                    $("#orgSelect").append(
-                        '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
-                        '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -21px;" onclick="getManagment(\''+value+'\',1)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-
-                case "BillingManager":
-                    $("#orgInput option[value='"+value+"']").remove();
-                    $("#orgSelect").append(
-                        '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
-                        '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -6px;" onclick="getManagment(\''+value+'\',1)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-
-                case "OrgAuditor":
-                    $("#orgInput option[value='"+value+"']").remove();
-                    $("#orgSelect").append(
-                        '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
-                        '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -29px;" onclick="getManagment(\''+value+'\',1)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-
-
-            }
-        }
-    })
-
-    //space 권한
-    $(document).on("change keyup","select[id=spaceInput]",function(){
-        var value = $('#spaceInput').val();
-        if(value!='N'){
-            switch (value) {
-                case "SpaceManager":
-                    $("#spaceInput option[value='"+value+"']").remove();
-                    $("#spaceSelect").append(
-                        '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
-                        '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: -8px;" onclick="getManagment(\''+value+'\',2)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-
-                case "SpaceAuditor":
-                    $("#spaceInput option[value='"+value+"']").remove();
-                    $("#spaceSelect").append(
-                        '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
-                        '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: -15px;" onclick="getManagment(\''+value+'\',2)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-
-                case "SpaceDeveloper":
-                    $("#spaceInput option[value='"+value+"']").remove();
-                    $("#spaceSelect").append(
-                        '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
-                        ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
-                        '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: 1px;" onclick="getManagment(\''+value+'\',2)">\n' +
-                        '                                                    <span aria-hidden="true">×</span></button>'
-                    );
-                    break;
-            }
-        }
-    });
-
-    function getManagment(val,flag){
-        if(flag==1){
-            $("#selectOS #orgOutput>button").each(function () {
-                if($(this).text() == val){
-                    $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
-                    $(this).parent().remove();
-                    $("#orgClose").remove();
-                }
+            arr=[];
+            $("#selectOS button").each(function () {
+                arr.push($(this).text());
             });
-        }else if(flag==2){
-            $("#selectOS #spaceOutput>button").each(function () {
-                if($(this).text() == val){
-                    $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
-                    $(this).parent().remove();
-                    $("#spaceClose").remove();
-                }
-            });
-        }
-    }
 
-    //조직등록 모달 role 초기화
-    $('#addUserModal').on('hidden.bs.modal', function (e) {
-        $("#selectOS button").each(function () {
-            $("#selectOS .close").remove();
-            $(this).parent().parent().children().find('select').append("<option value='"+$(this).text()+"'>"+$(this).text()+"</option>");
-            $(this).parent().remove();
-        });
-    });
+            procCallAjax(REST_URL + "/user"+"?key="+key, 'POST', JSON.stringify(param), procCallbackAddUserInsert, $('#layerModalLoadingBar'));
 
-    $(document).on("change keyup","select[id=getOrgList]",function(){
-        var orgId = $('#getOrgList').val();
-        getSpacesForAdmin(orgId);
-    })
-
-    function getSpacesForAdmin(orgId){
-        procCallAjax2(GET_ORGS_FOR_ADMIN_URL+"/"+orgId+"/spaces"+"?key="+key,"GET" ,null ,procCallbackGetSpace);
-    }
-
-    var procCallbackGetSpace = function(data, param) {
-        if(data.spaceList.resources.length === 0){
-            $('#getSpaceList').val("");
-            $('#getSpaceList').text("");
-            $("#getSpaceList").append ("<option value='N'>생성된 공간이 없습니다.</option>");
-        } else {
-            $('#getSpaceList').val("");
-            $('#getSpaceList').text("");
-            $.each(data.spaceList.resources, function (eventId, space) {
-                $("#getSpaceList").append ("<option value='"+space.metadata.guid+"'>"+space.entity.name+"</option>");
-            });
-        }
-    }
-
-    function pattenTest() {
-        var patten = /[\{\}\[\]\/@?,;:|\)*~`!^+<>\#$%&\\\=\(\'\"]/gi;
-        $("#addUserModal input[type=text]").each(function () {
-            $(this).val($(this).val().replace(patten, ''));
-        });
-    }
-
-    function isBlank(value) {
-        if (value == undefined || value == null || value == "") {
-            return true;
-        }
-        return false;
-    }
-
-    function regexPwd(value) {
-        var patten = /^[A-Za-z0-9+]{6,20}$/;
-        if (!patten.test(value)) {
-            return true;
-        }
-    }
-
-    function showLayerPopInitPwd() {
-        $("#initPwdModal").modal("show");
-    };
-
-    var USER_ID;
-
-    function btnInitUserPwd(userId) {
-        USER_ID = userId;
-        showLayerPopInitPwd();
-    };
-
-    function initPwdSave() {
-        key = $("#apiUrls").val();
-
-        var password = $("#newPassword").val();
-
-        // 비밀번호 (password)
-        if (isBlank(password)) {
-            notifyAlert("warning", "", "비밀번호를 입력하세요.");
-            return false;
-        }
-        // 비밀번호 정규식 검사 (password regular expression check)
-        if (regexPwd(password)) {
-            notifyAlert("warning", "", "비밀번호는 영문,숫자를 혼합하여 6~20자 이내 공백을 미포함합니다.");
-            return false;
-        }
-        // 비밀번호 확인 (Confirm Password)
-        if (isBlank($("#newPasswordConfirm").val())) {
-            notifyAlert("warning", "", "비밀번호를 확인해주세요.");
-            return false;
-        }
-        if(password !== $('#newPasswordConfirm').val()){
-            notifyAlert("warning", "", "비밀번호를 한 번 더 확인해주세요.");
-            return false;
-        }
-
-        var param = {
-            userId: USER_ID,
-            password: password
         };
 
-        procCallAjax(REST_URL + "/password"+"?key="+key, 'POST', JSON.stringify(param), procCallbackInitPassword, $('#layerModalLoadingBar'));
+        var procCallbackAddUserInsert = function(data) {
+            if(data.result) {
+                var guid = $("#getOrgList option:selected").val();
 
-    };
+                var param2 = {
+                    username : $("#addUserId").val(),
+                    spaceguid : $("#getSpaceList option:selected").val(),
+                    role : arr
+                };
+                procCallAjax(REST_URL2 +"/"+guid+"/users"+"?key="+key, 'PUT', JSON.stringify(param2), procCallbackOrgTarget, null);
+            }
+        };
 
-    var procCallbackInitPassword = function(data) {
-    };
+        //user의 id를 불러온다.
+        $(document).on("mouseup",'tr td[id=userList]',function (e) {
 
-    /*]]>*/
-</script>
+            var username =$(e.target).data('value');
+            $("#userName").val(username);
+
+            $("#getOrgList2 option").remove();
+            $("#getSpaceList2 option").remove();
+
+            /*uaa db의 사용자 정보를 가져온다.*/
+            procCallAjax(REST_URL +"/"+username+"/uaa"+"?key="+key,"GET",null, procCallbackUserInfo, $("#layerModalLoadingBar"));
+            /*포탈 db의 사용자 정보를 가져온다.*/
+          /*  procCallAjax(REST_URL +"/info/"+username+"?key="+key,"GET",null, procCallbackUserInfo, $("#layerModalLoadingBar"));*/
+
+            showLayerPopUpdateUser();
+        });
+
+
+        function showLayerPopUpdateUser() {
+            $("#updateUserModal").modal("show");
+        };
+
+
+        var procCallbackGetOrgs3 = function (data, param) {
+
+            if(data.resources.length == 0){
+                $("#getOrgList2").append ("<option value='N'>생성된 조직이 없습니다.</option>");
+            } else {
+                var orgName = new Array();
+                var idMap = new Map();
+                for (var i = 0; i < data.resources.length; i++) {
+                    orgName[i] = data.resources[i].entity.name;
+                    idMap.set(orgName[i],data.resources[i].metadata.guid);
+                }
+                orgName.sort();
+                for (var i = 0; i < data.resources.length; i++) {
+                    $("#getOrgList2").append ("<option value='"+idMap.get(orgName[i])+"'>"+orgName[i]+"</option>");
+                }
+                getSpacesForAdmin2(idMap.get(orgName[0]),orgName[0], 1);
+            }
+        }
+
+
+        // uaa 유저의 정보를 가져온다.
+        var procCallbackUserInfo = function(data) {
+            console.log("데이터" + data);
+
+            console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data.id));
+            var uaa = JSON.stringify(data);
+            var dataUaa = JSON.parse(uaa);
+            console.log(dataUaa);
+
+          /*  var getUserOne = JSON.parse(getUser).User;*/
+
+            var options = "";
+
+            var guid = dataUaa.id;
+            if (guid != undefined && guid != "") if (guid != "") options += "--name " + guid + " ";
+            $("#userGuid").val(guid);
+
+            var name = dataUaa.userName;
+            if (name != undefined && name != "") if (name != "") options += "--name " + name + " ";
+            $("#userName").val(name);
+
+            var email = dataUaa.email;
+            if (email != undefined) if (email != "") {
+                options += "--email" + email + " ";
+                $("#userEmail").val(email);
+            }
+
+            var authorities = dataUaa.authorities;
+            if (authorities != undefined) if (authorities != "") {
+                options += "--authorities" + authorities + " ";
+            }
+            /*가입일*/
+            var created = dataUaa.created;
+            if (created != undefined) if (created != "") {
+                options += "--created" + created + " ";
+                $("#userCreated").val(created.substring(0,10));
+            }
+            /*최종 접속일*/
+            var lastmodified = dataUaa.lastmodified;
+            if (lastmodified != undefined) if (lastmodified != "") {
+                options += "--lastmodified" + lastmodified + " ";
+                $("#userLastmodified").val(lastmodified.substring(0,10));
+            }
+
+            /*비밀번호 최종변경일*/
+            var passwdLastmodified = dataUaa.passwdLastmodified;
+            if (passwdLastmodified != undefined) if (passwdLastmodified != "") {
+                options += "--passwdLastmodified" + passwdLastmodified + " ";
+            }
+            var chk = ($("#updateUserActive").is(":checked"));
+
+            var active = dataUaa.active; // "Y" or "N"
+            if(active == "0") $("#updateUserActive").prop('checked', true);
+
+            /*else $("#updateUserActive").prop('checked', true);*/
+
+            procCallAjax2(GET_ORGS_FOR_ADMIN_URL + "?key=" + key, "GET", null, procCallbackGetOrgs3);
+
+
+   };
+
+        //수정 버튼 클릭시 호출
+        function updateUser() {
+
+            var userId = $("#userName").val();
+            var param = {
+                userId: userId
+            }
+
+            arr=[];
+            $("#selectOS2 button").each(function () {
+                arr.push($(this).text());
+            });
+
+            procCallAjax(REST_URL +"/info"+"/"+ userId+ "?key="+key, "PUT", JSON.stringify(param), procCallbackUpdateUserInsert, $('#layerModalLoadingBar'))
+        };
+
+
+        var procCallbackUpdateUserInsert = function(data) {
+            if(data.result) {
+                var guid = $("#getOrgList2 option:selected").val();
+
+                var param2 = {
+                    username : $("#userName").val(),
+                    spaceguid : $("#getSpaceList2 option:selected").val(),
+                    role : arr
+                };
+                procCallAjax(REST_URL2 +"/"+guid+"/users"+"?key="+key, 'PUT', JSON.stringify(param2), procCallbackOrgTarget, null);
+            }
+        };
+
+
+        var procCallbackOrgTarget = function(data){
+            if(data.result){
+                procInitPage();
+            }
+        }
+
+        $(document).on("change keyup","select[id=getOrgList2]",function(){
+            var orgId = $('#getOrgList2').val();
+            getSpacesForAdmin2(orgId);
+        });
+
+        // ON LOAD
+        $(document.body).ready(function () {
+            procInitPage();
+
+            if($.cookie("api_key") != null){
+                key = $.cookie("api_key");
+                $("#apiUrls").val(key);
+            }else{
+                key = $("#apiUrls").val();
+            }
+
+            getInitMarketPlaceURL();
+        });
+
+
+        $( "#apiUrls" ).change(function() {
+
+            key = $("#apiUrls").val();
+            $.cookie("api_key",key);
+            getUserInfoList(/*[[${T(org.openpaas.paasta.portal.web.admin.common.Constants).USER_MANAGEMENT_PAGE_NO}]]*/ "",key);
+
+        });
+
+        //org 권한
+        $(document).on("change keyup","select[id=orgInput]",function(){
+            var value = $('#orgInput').val();
+            if(value!='N'){
+                switch (value) {
+                    case "OrgManager":
+                        $("#orgInput option[value='"+value+"']").remove();
+                        $("#orgSelect").append(
+                            '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -21px;" onclick="getManagment(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "BillingManager":
+                        $("#orgInput option[value='"+value+"']").remove();
+                        $("#orgSelect").append(
+                            '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -6px;" onclick="getManagment(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "OrgAuditor":
+                        $("#orgInput option[value='"+value+"']").remove();
+                        $("#orgSelect").append(
+                            '<div id ="orgOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose" class="close" style="float: left;margin-left: -29px;" onclick="getManagment(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+
+                }
+            }
+        })
+
+        //space 권한
+        $(document).on("change keyup","select[id=spaceInput]",function(){
+            var value = $('#spaceInput').val();
+            if(value!='N'){
+                switch (value) {
+                    case "SpaceManager":
+                        $("#spaceInput option[value='"+value+"']").remove();
+                        $("#spaceSelect").append(
+                            '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: -8px;" onclick="getManagment(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "SpaceAuditor":
+                        $("#spaceInput option[value='"+value+"']").remove();
+                        $("#spaceSelect").append(
+                            '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: -15px;" onclick="getManagment(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "SpaceDeveloper":
+                        $("#spaceInput option[value='"+value+"']").remove();
+                        $("#spaceSelect").append(
+                            '<div id ="spaceOutput" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose" class="close" style="float: left;margin-left: 1px;" onclick="getManagment(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+                }
+            }
+        });
+
+        function getManagment(val,flag){
+            if(flag==1){
+                $("#selectOS #orgOutput>button").each(function () {
+                    if($(this).text() == val){
+                        $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
+                        $(this).parent().remove();
+                        $("#orgClose").remove();
+                    }
+                });
+            }else if(flag==2){
+                $("#selectOS #spaceOutput>button").each(function () {
+                    if($(this).text() == val){
+                        $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
+                        $(this).parent().remove();
+                        $("#spaceClose").remove();
+                    }
+                });
+            }
+        }
+
+        //조직등록 모달 role 초기화
+        $('#addUserModal').on('hidden.bs.modal', function (e) {
+            $("#selectOS button").each(function () {
+                $("#selectOS .close").remove();
+                $(this).parent().parent().children().find('select').append("<option value='"+$(this).text()+"'>"+$(this).text()+"</option>");
+                $(this).parent().remove();
+            });
+        });
+
+        //orgList
+        $(document).on("change keyup","select[id=getOrgList]",function(){
+            var orgId = $('#getOrgList').val()
+            getSpacesForAdmin(orgId);
+        })
+
+
+        //spaceList
+        function getSpacesForAdmin(orgId){
+            procCallAjax2(GET_ORGS_FOR_ADMIN_URL+"/"+orgId+"/spaces"+"?key="+key,"GET" ,null ,procCallbackGetSpace);
+        }
+
+        //spaceList를 가져오는 함수
+        var procCallbackGetSpace = function(data, param) {
+            if(data.spaceList.resources.length === 0){
+                $('#getSpaceList').val("");
+                $('#getSpaceList').text("");
+                $("#getSpaceList").append ("<option value='N'>생성된 공간이 없습니다.</option>");
+            } else {
+                $('#getSpaceList').val("");
+                $('#getSpaceList').text("");
+                $.each(data.spaceList.resources, function (eventId, space) {
+                    $("#getSpaceList").append ("<option value='"+space.metadata.guid+"'>"+space.entity.name+"</option>");
+                });
+            }
+        }
+
+        //org 권한  사용자 수정
+        $(document).on("change keyup","select[id=orgInput2]",function(){
+            var value = $('#orgInput2').val();
+            if(value!='N'){
+                switch (value) {
+                    case "OrgManager":
+                        $("#orgInput2 option[value='"+value+"']").remove();
+                        $("#orgSelect2").append(
+                            '<div id ="orgOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose2" class="close" style="float: left;margin-left: -21px;" onclick="getManagment2(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "BillingManager":
+                        $("#orgInput2 option[value='"+value+"']").remove();
+                        $("#orgSelect2").append(
+                            '<div id ="orgOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose2" class="close" style="float: left;margin-left: -6px;" onclick="getManagment2(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "OrgAuditor":
+                        $("#orgInput2 option[value='"+value+"']").remove();
+                        $("#orgSelect2").append(
+                            '<div id ="orgOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;" ><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',1)">'+value+'</button></div>'+
+                            '<button type="button" id="orgClose2" class="close" style="float: left;margin-left: -29px;" onclick="getManagment2(\''+value+'\',1)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+
+                }
+            }
+        })
+
+        //space 권한
+        $(document).on("change keyup","select[id=spaceInput2]",function(){
+            var value = $('#spaceInput2').val();
+            if(value!='N'){
+                switch (value) {
+                    case "SpaceManager":
+                        $("#spaceInput2 option[value='"+value+"']").remove();
+                        $("#spaceSelect2").append(
+                            '<div id ="spaceOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose2" class="close" style="float: left;margin-left: -8px;" onclick="getManagment2(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "SpaceAuditor":
+                        $("#spaceInput2 option[value='"+value+"']").remove();
+                        $("#spaceSelect2").append(
+                            '<div id ="spaceOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose2" class="close" style="float: left;margin-left: -15px;" onclick="getManagment2(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+
+                    case "SpaceDeveloper":
+                        $("#spaceInput2 option[value='"+value+"']").remove();
+                        $("#spaceSelect2").append(
+                            '<div id ="spaceOutput2" class="col-sm-1 col-xs-3" style="width: 102px; height: 100%; margin-left: 15px;"><button type="button" class="user_btn colors2"'+
+                            ' style="position: absolute;top: 6px;left: -8px;" onclick="getManagment2(\''+value+'\',2)">'+value+'</button></div>'+
+                            '<button type="button" id="spaceClose2" class="close" style="float: left;margin-left: 1px;" onclick="getManagment2(\''+value+'\',2)">\n' +
+                            '                                                    <span aria-hidden="true">×</span></button>'
+                        );
+                        break;
+                }
+            }
+        });
+
+        function getManagment2(val,flag){
+            if(flag==1){
+                $("#selectOS2 #orgOutput2>button").each(function () {
+                    if($(this).text() == val){
+                        $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
+                        $(this).parent().remove();
+                        $("#orgClose2").remove();
+                    }
+                });
+            }else if(flag==2){
+                $("#selectOS2 #spaceOutput2>button").each(function () {
+                    if($(this).text() == val){
+                        $(this).parent().parent().children().find('select').append("<option value='"+val+"'>"+val+"</option>");
+                        $(this).parent().remove();
+                        $("#spaceClose2").remove();
+                    }
+                });
+            }
+        }
+
+
+        //조직등록 모달 role 초기화 //update 부분
+        $('#updateUserModal').on('hidden.bs.modal', function (e) {
+            $("#selectOS2 button").each(function () {
+                $("#selectOS2 .close").remove();
+                $(this).parent().parent().children().find('select').append("<option value='"+$(this).text()+"'>"+$(this).text()+"</option>");
+                $(this).parent().remove();
+            });
+        });
+
+
+        function getSpacesForAdmin2(orgId){
+            procCallAjax2(GET_ORGS_FOR_ADMIN_URL+"/"+orgId+"/spaces"+"?key="+key,"GET" ,null ,procCallbackGetSpace2);
+        }
+
+
+        //사용자 수정 sapceList
+        var procCallbackGetSpace2 = function(data, param) {
+            if(data.spaceList.resources.length === 0){
+                $('#getSpaceList2').val("");
+                $('#getSpaceList2').text("");
+                $("#getSpaceList2").append ("<option value='N'>생성된 공간이 없습니다.</option>");
+            } else {
+                $('#getSpaceList2').val("");
+                $('#getSpaceList2').text("");
+                $.each(data.spaceList.resources, function (eventId, space) {
+                    $("#getSpaceList2").append ("<option value='"+space.metadata.guid+"'>"+space.entity.name+"</option>");
+                });
+            }
+        }
+
+
+        //사용자 등록에서 아이디를 입력할때 벨리데이션 체크
+        function pattenTest() {
+            var patten = /[\{\}\[\]\/@?,;:|\)*~`!^+<>\#$%&\\\=\(\'\"]/gi;
+            $("#addUserModal input[type=text]").each(function () {
+                $(this).val($(this).val().replace(patten, ''));
+            });
+        }
+
+        function isBlank(value) {
+            if (value == undefined || value == null || value == "") {
+                return true;
+            }
+            return false;
+        }
+
+        function regexPwd(value) {
+            var patten = /^[A-Za-z0-9+]{6,20}$/;
+            if (!patten.test(value)) {
+                return true;
+            }
+        }
+
+        function showLayerPopInitPwd() {
+            $("#initPwdModal").modal("show");
+        };
+
+        var USER_ID;
+
+        function btnInitUserPwd(userId) {
+            USER_ID = userId;
+            showLayerPopInitPwd();
+        };
+
+        function initPwdSave() {
+            key = $("#apiUrls").val();
+
+            var password = $("#newPassword").val();
+
+            // 비밀번호 (password)
+            if (isBlank(password)) {
+                notifyAlert("warning", "", "비밀번호를 입력하세요.");
+                return false;
+            }
+            // 비밀번호 정규식 검사 (password regular expression check)
+            if (regexPwd(password)) {
+                notifyAlert("warning", "", "비밀번호는 영문,숫자를 혼합하여 6~20자 이내 공백을 미포함합니다.");
+                return false;
+            }
+            // 비밀번호 확인 (Confirm Password)
+            if (isBlank($("#newPasswordConfirm").val())) {
+                notifyAlert("warning", "", "비밀번호를 확인해주세요.");
+                return false;
+            }
+            if(password !== $('#newPasswordConfirm').val()){
+                notifyAlert("warning", "", "비밀번호를 한 번 더 확인해주세요.");
+                return false;
+            }
+
+            var param = {
+                userId: USER_ID,
+                password: password
+            };
+
+            procCallAjax(REST_URL + "/password"+"?key="+key, 'POST', JSON.stringify(param), procCallbackInitPassword, $('#layerModalLoadingBar'));
+
+        };
+
+        var procCallbackInitPassword = function(data) {
+        };
+
+        /*]]>*/
+    </script>
 </body>
 </html>
